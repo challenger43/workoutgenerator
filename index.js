@@ -3,7 +3,7 @@ const legWorkouts = ["bodyweight squats", "lunge/reverse lunges", "calf raises",
 const abWorkouts = ["situps", "curl up/crunches", "oblique heel touches", "mountain climbers", "Russian Twist"]
 const cardioEnduranceWorkouts = ["high knees", "jog(in place)", "upper arm plank", "forearm plank", "squat hold"]
 const flexibilityWorkouts = ["hamstring stretch", "downward dog", "quad stretch", "butterfly stretch", "hip stretch"]
-//arrays /lists holding workouts
+//arrays holding workouts
 const bodySectionCheckboxes = document.getElementsByName("bodySections")
 const intensityLevel = document.getElementsByName("workoutIntensity")
 const para1 = document.getElementById("para1")
