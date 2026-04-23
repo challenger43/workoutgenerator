@@ -104,6 +104,5 @@ function generateWorkout(intensity) {
     }
     else {
         alert("Please fill out the whole form");
-        return false
     }
 }
