@@ -33,80 +33,77 @@ for (const bodySectionCheckbox of bodySectionCheckboxes) { //finds what values a
         }
     });
 }
-function getValues(intensityLevel) { //this is the check to make sure everything has been selected before proceeding onto generateWorkout.
-    if (intensityLevel && selectedBodySections.length !== 0) {
-        return true
-    }
-    else {
-        alert("Please fill out the whole form");
-        return false
-    }
-}
 function getSelectedIntensity() { //gets the selected intensity by upon clicking generateWorkout it will call this, get the selected intensity if it exists, which then goes into getValues as a parameter.
     let selected = document.querySelector('input[name="workoutIntensity"]:checked');
     return selected ? selected.value : null; //condition if true ? if false return as null
 }
 function generateWorkout(intensity) {
-    if (!getValues(intensity)) {
-        return
-    } //if the values haven't been fully selected, end function
-    selectedIntensityValue = intensity
-    para1.innerHTML = "" //resets the paragraph thing where the actual workout will spawn 
-    switch (selectedIntensityValue) { //sets the cases for each possible selectedIntensityValue
-        case "low":
-            numReps = 5
-            numExercises = 1
-            break
-        case "medium":
-            numReps = 15
-            numExercises = 3
-            break
-        case "high":
-            numReps = 25
-            numExercises = 5
-            break
+    if (intensityLevel && selectedBodySections.length !== 0) {
+        selectedIntensityValue = intensity
+        para1.innerHTML = "" //resets the paragraph thing where the actual workout will spawn 
+        switch (selectedIntensityValue) { //sets the cases for each possible selectedIntensityValue
+            case "low":
+                numReps = 5
+                numExercises = 1
+                break
+            case "medium":
+                numReps = 15
+                numExercises = 3
+                break
+            case "high":
+                numReps = 25
+                numExercises = 5
+                break
+            default:
+                numReps = 10
+                numExercises = 4
+        }
+        let tempArray = [] //create temporary arrays to shuffle workouts
+        let tempValue;
+        let feederWorkout
+        for (let section of selectedBodySections) { //sets each temporary feederworkout array to the workout array selected by checkbox for each body section selected
+            switch (section) {
+                case "upperBody":
+                    feederWorkout = upperBodyWorkouts
+                    workoutType = "reps"
+                    break
+                case "legs":
+                    feederWorkout = legWorkouts
+                    workoutType = "reps"
+                    break
+                case "abs":
+                    feederWorkout = abWorkouts
+                    workoutType = "reps"
+                    break
+                case "endurance":
+                    feederWorkout = cardioEnduranceWorkouts
+                    workoutType = "time"
+                    break
+                case "flexibility":
+                    feederWorkout = flexibilityWorkouts
+                    workoutType = "time"
+                    break
+            }
+            let lenArray = feederWorkout.length
+            for (let i = 0; i < lenArray; i++) { //shuffle the array
+                tempValue = feederWorkout[Math.floor(Math.random() * feederWorkout.length)]  //pick a random index from feederWorkout and set that to tempValue
+                tempArray.push(tempValue) //put tempValue into tempAray 
+                feederWorkout = feederWorkout.filter(value => value !== tempValue) //remove tempValue from the original array 
+            }
+            for (let i = 0; i < numExercises; i++) {
+                feederWorkout.push(tempArray.pop()) //get rid of tempArray by putting the new reordered version into feederWorker
+                // console.log(feederWorkout)
+            }
+            if (workoutType === "reps") { //sets the actual workout text based on what type of workout it was 
+                para1.innerHTML += `<h1>Body Section: ${section}</h1> <h2>Exercises:</h2> <p>Reps: ${numReps}</p> <p>${feederWorkout.join(", ")}</p>`
+            }
+            else {
+                para1.innerHTML += `<h1>Body Section: ${section}</h1> <h2>Exercises:</h2> <p>Time: ${numReps} seconds</p> <p>${feederWorkout.join(", ")}</p>`;
+            }
+        }
     }
-    let tempArray = [] //create temporary arrays to shuffle workouts
-    let tempValue;
-    let feederWorkout
-    for (let section of selectedBodySections) { //sets each temporary feederworkout array to the workout array selected by checkbox for each body section selected
-        switch (section) {
-            case "upperBody":
-                feederWorkout = upperBodyWorkouts
-                workoutType = "reps"
-                break
-            case "legs":
-                feederWorkout = legWorkouts
-                workoutType = "reps"
-                break
-            case "abs":
-                feederWorkout = abWorkouts
-                workoutType = "reps"
-                break
-            case "endurance":
-                feederWorkout = cardioEnduranceWorkouts
-                workoutType = "time"
-                break
-            case "flexibility":
-                feederWorkout = flexibilityWorkouts
-                workoutType = "time"
-                break
-        }
-        let lenArray = feederWorkout.length
-        for (let i = 0; i < lenArray; i++) { //shuffle the array
-            tempValue = feederWorkout[Math.floor(Math.random() * feederWorkout.length)]  //pick a random index from feederWorkout and set that to tempValue
-            tempArray.push(tempValue) //put tempValue into tempAray 
-            feederWorkout = feederWorkout.filter(value => value !== tempValue) //remove tempValue from the original array 
-        }
-        for (let i = 0; i < numExercises; i++) {
-            feederWorkout.push(tempArray.pop()) //get rid of tempArray by putting the new reordered version into feederWorker
-            console.log(feederWorkout)
-        }
-        if (workoutType === "reps") { //sets the actual workout text based on what type of workout it was 
-            para1.innerHTML += `<h1>Body Section: ${section}</h1> <h2>Exercises:</h2> <p>Reps: ${numReps}</p> <p>${feederWorkout.join(", ")}</p>`
-        }
-        else {
-            para1.innerHTML += `<h1>Body Section: ${section}</h1> <h2>Exercises:</h2> <p>Time: ${numReps} seconds</p> <p>${feederWorkout.join(", ")}</p>`;
-        }
+    else {
+        alert("Please fill out the whole form");
+        return false
     }
 }
