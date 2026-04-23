@@ -96,10 +96,12 @@ function generateWorkout(intensity) {
                 // console.log(feederWorkout)
             }
             if (workoutType === "reps") { //sets the actual workout text based on what type of workout it was 
-                para1.innerHTML += `<h1>Body Section: ${section}</h1> <h2>Exercises:</h2> <p>Reps: ${numReps}</p> <p>${feederWorkout.join(", ")}</p>`
+                para1.innerHTML += `<h1>Body Section: ${section}</h1> <h2>Exercises:</h2>
+                <p>Reps: ${numReps}</p> <p>${feederWorkout.join(", ")}</p>`
             }
             else {
-                para1.innerHTML += `<h1>Body Section: ${section}</h1> <h2>Exercises:</h2> <p>Time: ${numReps} seconds</p> <p>${feederWorkout.join(", ")}</p>`;
+                para1.innerHTML += `<h1>Body Section: ${section}</h1> <h2>Exercises:</h2> 
+                <p>Time: ${numReps} seconds</p> <p>${feederWorkout.join(", ")}</p>`;
             }
         }
     }
