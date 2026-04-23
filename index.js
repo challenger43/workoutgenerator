@@ -38,7 +38,7 @@ function getSelectedIntensity() { //gets the selected intensity by upon clicking
     return selected ? selected.value : null; //condition if true ? if false return as null
 }
 function generateWorkout(intensity) {
-    if (intensityLevel && selectedBodySections.length !== 0) {
+    if (getSelectedIntensity() && selectedBodySections.length !== 0) {
         selectedIntensityValue = intensity
         para1.innerHTML = "" //resets the paragraph thing where the actual workout will spawn 
         switch (selectedIntensityValue) { //sets the cases for each possible selectedIntensityValue
