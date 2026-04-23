@@ -57,6 +57,7 @@ function generateWorkout(intensity) {
             default:
                 numReps = 10
                 numExercises = 4
+                break
         }
         let tempArray = [] //create temporary arrays to shuffle workouts
         let tempValue;
